@@ -12,8 +12,13 @@ var express = require('express');
 // for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
 
+var https = require('https')
+var fs = require('fs')
+
 // create a new express server
 var app = express();
+
+
 
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
@@ -21,5 +26,11 @@ app.use(express.static(__dirname + '/public'));
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-// start server on the specified port and binding host
-app.listen(80, () => console.log(`Example app listening on port!`));
+
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.crt')
+}, app)
+.listen(2000, function () {
+  console.log('Example app listening on port 3000! Go to https://localhost:3000/')
+})
