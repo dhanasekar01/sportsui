@@ -12,13 +12,11 @@ app.localization.registerView('vendor');
             id:"vendor-qr",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             pay: function(){
-                app.stopQRwithHtml(vendorModel.id, vendorModel.htmlCnt);
-
-                var result= app.scan(vendorModel.id);
+                var result= app.scan(vendorModel.id, function (content) {
+                    console.log(content);
+                    app.stopQRwithHtml(vendorModel.id,vendorModel.htmlCnt)
+                });
                 
-                if(result){
-                    app.stopQRwithHtml(vendorModel.id, vendorModel.htmlCnt);
-                }
 
             }
         });

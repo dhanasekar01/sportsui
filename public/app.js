@@ -4,7 +4,40 @@
     var app = {
         data: {},
         user:{},
+        test:false,
+        baseUrl: "http://localhost:8100/yeskindia/api",
+        api:{
+            login:"/login/",
+            debitPts:"/",
+            creditPts:"/",
+            creditReward:"/",
+            cancelPts:"/",
+            editPts:"/",
+            cancelReward:"/",
+            editReward:"/",
+            issueCard:"/",
+            spotRegister:"/",
+            exportData:"/",
+            gameChanger:"/",
+            blockUser:"/",
+            blockQR:"/",
+            leadingVendorByTime:"/",
+            leadingVendorByPopular:"/",
+            leadingPlayerChamp:"/",
+            leadingPlayerAllrounder:"/",
+            leadingBuyer:"/",
+            leadingSchool:"/",
+            leadingStudent:"/",
+            leadingGame:"/",
+            getGamesWithPts:"/",
+            getQRCode:"/",
+            findInvitee:"/",
+            findVendor:"/",
+            updateFamily:"/",
+        },
+        
         data:"data",
+        htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
         scanner:null,
         localization: {
             defaultCulture: localStorage.getItem("culture") ? localStorage.getItem("culture"):"en",
@@ -26,6 +59,7 @@
     };
     
     var bootstrap = function() {
+        localStorage.setItem("culture","en")
         $(function() {
             app.mobileApp = new kendo.mobile.Application(document.body, {
                 transition: 'slide',
@@ -87,10 +121,17 @@
             async: false,
             type: "POST",
             url: url,
-            data: data,
+            data: JSON.stringify(data),
             dataType: "application/json",
             complete: function (jqxhr, txt_status) {
-                result = jqxhr;
+                if(result != null && result != "" && result != undefined){
+                    try{
+                        result = JSON.parse(jqxhr);
+                        result = result.responseText;
+                    }catch(e){
+                        result = { "message":app.strings.error.unknown }
+                    }
+                }
             }
         });
         return result;
@@ -101,24 +142,81 @@
         $.ajax({
             async: false,
             type: "GET",
-            url: url,
+            url: this.baseUrl+url,
             complete: function (jqxhr, txt_status) {
-                result = jqxhr;
+                if(jqxhr != null && jqxhr != "" && jqxhr != undefined){
+                    try{
+                        result = jqxhr.responseText;
+                        console.log(result);
+                        result = typeof result != "object" ? JSON.parse(result) : result;
+                    }catch(e){
+                        console.log(e);
+                        result = { "message":app.gl().error.unknown }
+                    }
+                }
             }
         });
         return result;
     }
+
+    app.login = function(username, pwd){
+        localStorage.setItem("username",username);
+        var response = {} ;
+        if(app.test){
+            response = {
+                id:"123",
+                name:"Guest",
+                type:101
+            }
+        }else{
+            response = app.getData(this.api.login+"/"+username+"/"+pwd);
+        }
+        return response;
+    }
+
+    app.redirect = function(type){
+
+        switch(type){
+            case 101: app.mobileApp.navigate("components/vendor/vendor.html"); break;
+            case "RCH": app.mobileApp.navigate("components/recharge/recharge.html"); break;
+            /*case "ADM": app.mobileApp.navigate("components/admin/admin.html");
+            case "DSH": app.mobileApp.navigate("components/home/vendor.html");
+            case "SPT": app.mobileApp.navigate("components/home/vendor.html");
+            case "MNT": app.mobileApp.navigate("components/home/vendor.html");
+            case "REG": app.mobileApp.navigate("components/home/vendor.html");
+            case "SLF": app.mobileApp.navigate("components/home/vendor.html");
+            case "LDR": app.mobileApp.navigate("components/home/vendor.html");*/
+            case "": break;
+
+        }
+    }
+
+    app.debitPts = function(id, pts){
+        var request = {
+            qrId: id,
+            points: pts,
+            type: "D",
+            requestUser: localStorage.getItem("username")
+        }
+        var response = {};
+        if(this.test){
+            response = {
+                message:app.gl().vndr.debit.success,
+                totalSale: 30.00
+            
+            }
+        } else{
+            response = this.postData(url,request);
+        }
+    }
   
-    app.scan = function(id){
+    app.scan = function(id, callback){
         var scanResult = "";
         localStorage.setItem(id,$("#"+id).html());
         $("#"+id).html("<video id='preview' style='width:100%'></video>");
         
         app.scanner = new Instascan.Scanner({ video: document.getElementById("preview") });
-        app.scanner.addListener('scan', function (content) {
-            scanResult = content;
-            alert(content);
-        });
+        app.scanner.addListener('scan', callback);
 
         Instascan.Camera.getCameras().then(function (cameras) {
           console.log(cameras);
@@ -140,6 +238,10 @@
             app.mobileApp.navigate("components/home/view.html?value=logout");
         }
     };
+
+    app.gl = function(){
+        return app.localization.get('strings')[localStorage.getItem("culture")];
+    }
 
     if (window.cordova) {
         document.addEventListener('deviceready', function () {

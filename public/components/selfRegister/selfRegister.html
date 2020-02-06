@@ -1,5 +1,5 @@
-  <div data-role="view" data-title="self" data-layout="main-nonav" data-model="app.self" data-show="app.self.onShow"
-      data-after-show="app.self.afterShow" id="selfScreen" data-use-native-scrolling="true">
+  <div data-role="view" data-title="selfRegister" data-layout="main-nonav" data-model="app.selfRegister" data-show="app.selfRegister.onShow"
+      data-after-show="app.selfRegister.afterShow" id="selfRegisterScreen" data-use-native-scrolling="true">
       <div class="wrapper wrapper-full-page">
           <div class="full-page login-page" filter-color="black" data-image="">
               <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
@@ -57,14 +57,14 @@
                                       </div>
                                       <div class="wizard-navigation">
                                           <ul class="nav nav-pills">
-                                              <li style="width: 33.3333%;"><a href="#selfmember" data-toggle="tab" class="active show">Member Details</a></li>
+                                              <li style="width: 33.3333%;"><a href="#selfRegistermember" data-toggle="tab" class="active show">Member Details</a></li>
                                               <li style="width: 33.3333%;"><a href="#familymember" data-toggle="tab">Family Details</a></li>
-                                              <li style="width: 33.3333%;"><a href="#scanself" data-toggle="tab">Scan & self</a></li>
+                                              <li style="width: 33.3333%;"><a href="#scanselfRegister" data-toggle="tab">Scan & selfRegister</a></li>
                                           </ul>
                                       <div class="moving-tab" style="width: 214.667px; transform: translate3d(-8px, 0px, 0px); transition: transform 0s ease 0s;">Category</div></div>
 
                                       <div class="tab-content">
-                                          <div class="tab-pane active show" id="selfmember">
+                                          <div class="tab-pane active show" id="selfRegistermember">
                                               <div class="row">
                                                   <div class="col-sm-5">
                                                     <div class="form-group">
@@ -105,7 +105,7 @@
                                               </div>
                                           </div>
                                           
-                                          <div class="tab-pane" id="scanself">
+                                          <div class="tab-pane" id="scanselfRegister">
                                               <div class="row">
                                                   
                                               </div>
@@ -114,7 +114,7 @@
                                       <div class="wizard-footer">
                                           <div class="pull-right">
                                               <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
-                                              <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" data-bind="events:{click: selfModel.finish}" name="finish" value="Finish" style="display: none;">
+                                              <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" data-bind="events:{click: selfRegisterModel.finish}" name="finish" value="Finish" style="display: none;">
                                           </div>
 
                                           <div class="pull-left">

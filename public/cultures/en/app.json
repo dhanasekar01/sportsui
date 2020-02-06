@@ -16,5 +16,15 @@
   },
   "recharge":{
     "amount":"Amount"
+  },
+  "error":{
+    "E01":"Unknow Error. Please contact Technical Support",
+    "E02":"Missing username",
+    "E03":"Missing Password",
+    "E04":"User Blocked",
+    "E05":"User not found",
+    "E06":"User is inactive",
+    "E07":"Please Enter username and Password"
+    
   }
 }

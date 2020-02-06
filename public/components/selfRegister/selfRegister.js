@@ -1,23 +1,23 @@
 'use strict';
 
-app.self = kendo.observable({
+app.selfRegister = kendo.observable({
     onShow: function () { },
     afterShow: function () { }
 });
-app.localization.selfView('self');
+app.localization.registerView('selfRegister');
 
 (function (parent) {
     var
-        selfModel = kendo.observable({
+        selfRegisterModel = kendo.observable({
             id:"sport-qr",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             play: function(){
-                app.stopQRwithHtml(selfModel.id, selfModel.htmlCnt);
+                app.stopQRwithHtml(selfRegisterModel.id, selfRegisterModel.htmlCnt);
 
-                var result= app.scan(selfModel.id);
+                var result= app.scan(selfRegisterModel.id);
                 
                 if(result){
-                    app.stopQRwithHtml(selfModel.id, selfModel.htmlCnt);
+                    app.stopQRwithHtml(selfRegisterModel.id, selfRegisterModel.htmlCnt);
                 }
 
             },
@@ -245,7 +245,7 @@ app.localization.selfView('self');
             }
         });
 
-    parent.set('selfModel', selfModel);    
+    parent.set('selfRegisterModel', selfRegisterModel);    
 
     parent.set('onShow', function (e) {
 
@@ -259,7 +259,7 @@ app.localization.selfView('self');
             $full_page.fadeIn('fast');
         });
 
-        selfModel.initMaterialWizard();
+        selfRegisterModel.initMaterialWizard();
 
         $("#membercount").on("change",function(){
             var count = $("#membercount").val();
@@ -283,4 +283,4 @@ app.localization.selfView('self');
     parent.set('afterShow', function (e) {
 
     });
-})(app.self);
+})(app.selfRegister);

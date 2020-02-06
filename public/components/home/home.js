@@ -9,10 +9,14 @@ app.localization.registerView('home');
 (function (parent) {
     var
         homeModel = kendo.observable({
+            id:"scanner",
             username: "",
             password: "",
             scanme: function(){
-                app.scan("scanner");
+                app.scan(homeModel.id, function (content) {
+                    homeModel.set("username",content);
+                    app.stopQRwithHtml(homeModel.id,app.htmlCnt)
+                });
 
             },
             eng:function(){
@@ -27,23 +31,26 @@ app.localization.registerView('home');
                 var model = homeModel;
 
                 if (homeModel.username == '' && homeModel.password == '') {
-                    app.showNotification('Missing credentials');
+                    app.showNotification(app.gl().error.E07);
                     return false;
                 }
 
                 if (homeModel.username == '') {
-                    app.showNotification('Missing username');
+                    app.showNotification(app.gl().error.E02);
                     return false;
                 }
 
                 if (homeModel.password == '') {
-                    app.showNotification('Missing password');
+                    app.showNotification(app.gl().error.E03);
                     return false;
                 }
                 return true;
             },
             signin: function () {
-                
+                if(homeModel.validateData()){
+                    var response = app.login(homeModel.username,homeModel.password);
+                    app.redirect(response.userType);
+                }
             }
         });
 
@@ -68,7 +75,6 @@ app.localization.registerView('home');
 
         enterToLogin();
 
-        localStorage.clear();
         var $full_page = $('.full-page');
 
         $full_page.fadeOut('fast', function () {
