@@ -53,10 +53,13 @@
                                     <p style="padding: 5px;right:0px"> <a href="javascript:void()" data-bind="events:{click:homeModel.eng}">English</a> | <a href="javascript:void()" data-bind="events:{click:homeModel.tam}">தமிழ்</a>  </p>
                                     <div class="card-content">
                                         <div class="row">
+                                            <table class="table">
+                                                <tr data-template="homeTemplate" data-bind="source: homeModel.cameras"></tr>
+                                            </table>
                                             <div class="col-12 col-sm-6">
-                                                <div id="scanner" style="text-align: center;">
+                                                <div id="scanner" data-bind="events:{ click : homeModel.scanme }" style="text-align: center;max-height: 450px;">
                                                     <br />
-                                                    <img data-bind="events:{ click : homeModel.scanme }"
+                                                    <img 
                                                         src="/img/scanner.png" style="width:50%">
                                                 </div>
                                             </div>
@@ -113,3 +116,10 @@
         </div>
     </div>
 </div>
+<script type="text/x-kendo-template" id="homeTemplate"> 
+        <td> 
+            <button data-bind="click: homeModel.switchCam" type="button" rel="tooltip" title="Switch" class="btn btn-danger btn-simple btn-xs">
+                ${name}
+            </button>
+        </td>                                              
+  </script>

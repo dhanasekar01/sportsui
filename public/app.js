@@ -213,18 +213,24 @@
     app.scan = function(id, callback){
         var scanResult = "";
         localStorage.setItem(id,$("#"+id).html());
-        $("#"+id).html("<video id='preview' style='width:100%'></video>");
+        $("#"+id).html("<video id='preview' style='width:100%;height:320px;'></video>");
         
         app.scanner = new Instascan.Scanner({ video: document.getElementById("preview") });
         app.scanner.addListener('scan', callback);
 
         Instascan.Camera.getCameras().then(function (cameras) {
-          console.log(cameras);
-          if (cameras.length > 0) {
-            app.scanner.start(cameras[0]);
-          } else {
-            alert('No cameras found.');
-          }
+            var selectedCamera = 0;
+
+            if(localStorage.getItem("selectedCams") != undefined && localStorage.getItem("selectedCams") != null){
+                selectedCamera = parseInt(localStorage.getItem("selectedCams"));
+            }
+            
+            if (cameras.length > 0) {
+                app.scanner.start(cameras[selectedCamera]);
+            } 
+            else {
+                alert('No cameras found.');
+            }
         }).catch(function (e) {
             alert(e);
         });

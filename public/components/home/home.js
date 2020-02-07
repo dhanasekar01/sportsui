@@ -12,12 +12,20 @@ app.localization.registerView('home');
             id:"scanner",
             username: "",
             password: "",
+            cameras: [],
             scanme: function(){
                 app.scan(homeModel.id, function (content) {
                     homeModel.set("username",content);
                     app.stopQRwithHtml(homeModel.id,app.htmlCnt)
                 });
 
+            },
+            switchCam : function(e){
+                var cam = e.data;
+                var cams = homeModel.get("cameras");
+                var index = cams.indexOf(cam);
+                localStorage.setItem("selectedCams",index);
+                app.scanner.start(index);
             },
             eng:function(){
                 localStorage.setItem("culture","en");
@@ -75,6 +83,25 @@ app.localization.registerView('home');
 
         enterToLogin();
 
+        Instascan.Camera.getCameras().then(function (cameras) {
+            
+            if (cameras.length > 0) {
+                $.each(cameras,function(k,v){
+                    if(v.name.includes("back")){
+                        localStorage.setItem("selectedCams",k);
+                    }
+                });
+
+                homeModel.set("cameras",cameras);
+            } 
+            else {
+                alert('No cameras found.');
+            }
+
+        }).catch(function (e) {
+            alert(e);
+        });
+
         var $full_page = $('.full-page');
 
         $full_page.fadeOut('fast', function () {
@@ -83,8 +110,6 @@ app.localization.registerView('home');
             $full_page.css('background-size', 'contain');
             $full_page.fadeIn('fast');
         });
-
-        
 
         setTimeout(function () {
             $('.card').removeClass('card-hidden');
