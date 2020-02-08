@@ -57,7 +57,14 @@ app.localization.registerView('home');
             signin: function () {
                 if(homeModel.validateData()){
                     var response = app.login(homeModel.username,homeModel.password);
-                    app.redirect(response.userType);
+                    if(response.isSuccess){
+                        localStorage.setItem("type",response.userType);
+                        localStorage.setItem("validUser",response.validUser);
+                        app.redirect(response.userType);
+                    }else{
+                        localStorage.setItem("validUser",false);
+                        app.showNotification(response.message);
+                    }
                 }
             }
         });

@@ -54,31 +54,186 @@
                                     </h4>
                                     <div class="card-content">
                                         <div class="row">
-                                            <div class="col-12 col-sm-6">
+                                            <div class="col-12 col-sm-4">
                                                 <div id="sport-qr" style="text-align: center;">
                                                     <br /><img src="/img/scanner.png" style="width:50%">
                                                 </div>
+                                                <br/>
+                                                <h1>Links</h1>
+                                                <div class="col-12 col-sm-6">
+                                                    <a href="javascript:void(0)" onclick="app.redirect(107)">
+                                                        Registration Page
+                                                    </a>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <a href="javascript:void(0)" onclick="app.redirect(103)" >
+                                                        Recharge Page
+                                                    </a>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <a href="javascript:void(0)" onclick="app.redirect(104)" >
+                                                        Sports Page
+                                                    </a>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <a href="javascript:void(0)" onclick="app.redirect(101)" >
+                                                        Vendor Page
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="col-6 col-sm-3">
-                                                <button type="button" data-bind="events:{ click : dashModel.play }" class="btn btn-info">
-                                                    <span class="btn-label">
-                                                      <img src="/img/game.png">
-                                                    </span>
-                                                    Play
-                                                  </button type="button">
-                                                  
-                                            </div>
-                                            <div class="col-6 col-sm-3">
-                                                <button type="button" data-bind="events:{ click : dashModel.winner }" class="btn btn-success">
-                                                    <span class="btn-label">
-                                                        <img src="/img/cup.png">
-                                                    </span>
-                                                    Winner
-                                                  </button>
-                                            </div>
+                                            <div class="col-12 col-sm-7"> 
+                                                <h1>IAM</h1>
+                                                <div class="row adminclass">
+                                                    <div class="col-6 col-sm-3">
+                                                        <div class="form-group">
+                                                            <label for="userType">User Type</label>
+                                                            <select class="form-control" id="userType">
+                                                                <option value="100">ADMIN</option>
+                                                                <option value="101">VENDOR</option>
+                                                                <option value="102">MEMBER</option>
+                                                                <option value="103">RECHARGE</option>
+                                                                <option value="104">SPORTS</option>
+                                                                <option value="105">STUDENT</option>
+                                                                <option value="106">FAMILY</option>
+                                                                <option value="107">REGISTRAR</option>
+                                                                <option value="108">ORGANIZER</option>
+                                                                <option value="109">MEDIA</option>
+                                                            </select>
+                                                          </div>                                              
+                                                    </div>
+                                                    <div class="col-6 col-sm-2">
+                                                        <button type="button" data-bind="events:{ click : dashModel.getStatus }" class="btn btn-info">
+                                                            Info
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-6 col-sm-2">
+                                                        <button type="button" data-bind="events:{ click : dashModel.grant }" class="btn btn-success">
+                                                            Grant
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-6 col-sm-2">
+                                                        <button type="button" data-bind="events:{ click : dashModel.revoke }" class="btn btn-danger">
+                                                            Revoke
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-6 col-sm-2">
+                                                        <button type="button" data-bind="events:{ click : dashModel.reset }" class="btn btn-default ">
+                                                            Reset
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <h1>Maintain Game</h1>
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <select class="form-control" id="gameType" style="width: 100%;">
+                                                                        <option value="CRICKET">CRICKET</option>
+                                                                        <option value="BASKETBALL">BASKETBALL</option>
+                                                                        <option value="TENNIS">TENNIS</option>
+                                                                    </select>
+                                                                  </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Points values</label>
+                                                                    <input type="number" class="form-control" data-bind="value: dashModel.pointsvalue">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <button type="button" class="btn btn-success pull-left">Change</button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <!--Stall Register-->
+                                                <div class="row">
+                                                    
+                                                    <div class="col-12">
+                                                        <h1>Stall Register</h1>
 
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">QR ID</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.qrid" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Name</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.vndname" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <select class="form-control" id="vendorType" style="width: 100%;">
+                                                                        <option value="101">VENDOR</option>
+                                                                        <option value="104">SPORTS</option>
+                                                                    </select>
+                                                                  </div>
+                                                            </div>
+                                                        </div>
+                                
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Owner Name</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.owner" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Phone</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.phone" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Adress</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.address" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">GSTN</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.gstn" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">City</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.city" >
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group label-floating">
+                                                                    <label class="control-label">Postal Code</label>
+                                                                    <input type="text" class="form-control" data-bind="value: dashModel.zipcode" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                            
+                                                        <button type="button" class="btn btn-danger pull-left">Reset</button>
+                                                        <button type="button" class="btn btn-rose pull-right" data-bind="click: dashModel.register">Register Vendor</button>
+                                                        <div class="clearfix"></div>
+                                                        <hr/>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
+                                        
                                     </div>
                                 </div>
 

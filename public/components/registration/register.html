@@ -45,88 +45,69 @@
                               </div>
                           </div>
                       </div>
-                      <div class="row">
-                          <div class="col-12 col-sm-12">
-                            <div class="wizard-container">
-                              <div class="card wizard-card active" data-color="green" id="wizardProfile">
-                                  <form class="form-horizontal" novalidate="novalidate">
-                                      <div class="wizard-header">
-                                          <h3 class="wizard-title">
-                                             New Registration
-                                          </h3>
-                                      </div>
-                                      <div class="wizard-navigation">
-                                          <ul class="nav nav-pills">
-                                              <li style="width: 33.3333%;"><a href="#member" data-toggle="tab" class="active show">Member Details</a></li>
-                                              <li style="width: 33.3333%;"><a href="#family" data-toggle="tab">Family Details</a></li>
-                                              <li style="width: 33.3333%;"><a href="#scan-register" data-toggle="tab">Scan & Register</a></li>
-                                          </ul>
-                                      <div class="moving-tab" style="width: 214.667px; transform: translate3d(-8px, 0px, 0px); transition: transform 0s ease 0s;">Category</div></div>
+                      <div id="register-qr" style="z-index:1000;text-align: center;position: fixed;right:0;bottom:30px;width: 320px;" data-bind="click:registerModel.scan">
+                        <br /><img src="/img/scanner.png" style="width:50%">
+                    </div>
+                      <div class="card">
+                        <br/>
+                        <h1 style="text-align: center;">
+                          New/Edit Registration
+                       </h1>
+                        <div class="row">
+                          <div class="col-sm-1">
 
-                                      <div class="tab-content">
-                                          <div class="tab-pane active show" id="memeber">
-                                              <div class="row">
-                                                  <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                      <label for="mobilenumber" class="bmd-label-floating">Mobile Number</label>
-                                                      <input type="number" class="form-control" id="mobilenumber">
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <label for="mname" class="bmd-label-floating">Member Name</label>
-                                                      <input type="text" class="form-control" id="mname">
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <label for="clubname" class="bmd-label-floating">Club</label>
-                                                      <input type="text" class="form-control" id="clubname">
-                                                    </div>
-                                                    <div class="form-group">
-                                                      <label for="region" class="bmd-label-floating">Region</label>
-                                                      <input type="text" class="form-control" id="region">
-                                                    </div>
-                                                  </div>
-                                                  <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                      <label for="membercount" class="bmd-label-floating">Family Members</label>
-                                                      <input type="number" class="form-control" id="membercount">
-                                                    </div>
-                                              </div>
-                                          </div>
-                                        </div>
-
-                                          <div class="tab-pane" id="family">
-                                              <div class="row">
-                                                  <div class="table-responsive">
-                                                    <table class="table">
-                                                        <tbody id="familydetails">
-                                                            
-                                                        </tbody>
-                                                    </table>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          
-                                          <div class="tab-pane" id="scan-register">
-                                              <div class="row">
-                                                  
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="wizard-footer">
-                                          <div class="pull-right">
-                                              <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
-                                              <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" data-bind="events:{click: spendModel.addItem}" name="finish" value="Finish" style="display: none;">
-                                          </div>
-
-                                          <div class="pull-left">
-                                              <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
-                                          </div>
-                                          <div class="clearfix"></div>
-                                      </div>
-                                  </form>
+                          </div>
+                          <div class="col-sm-8">
+                              <div class="row">
+                                  <div class="col-sm-2">
+                                    <div class="form-group">
+                                      <label for="qrId" class="bmd-label-floating">QR ID</label>
+                                      <input type="text" class="form-control" id="qrId" data-bind="value: registerModel.qrId">
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <label for="mobilenumber" class="bmd-label-floating">Mobile Number</label>
+                                      <input type="text" class="form-control" id="mobilenumber" data-bind="value: registerModel.mobilenumber, events :{ change:registerModel.findUser}">
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <label for="mname" class="bmd-label-floating">Member Name</label>
+                                      <input type="text" class="form-control" id="mname" data-bind="value: registerModel.mname">
+                                    </div>
+                                  </div>
                               </div>
-                          </div>
-                          </div>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <div class="form-group">
+                                    <label for="clubname" class="bmd-label-floating">Club</label>
+                                    <input type="text" class="form-control" id="clubname" data-bind="value: registerModel.clubname">
+                                  </div>
+                                </div>
+                                <div class="col-sm-3">
+                                  <div class="form-group">
+                                    <label for="region" class="bmd-label-floating">Region</label>
+                                    <input type="text" class="form-control" id="region" data-bind="value: registerModel.region">
+                                  </div>
+                                </div>
+                                <div class="col-sm-3">
+                                  <div class="form-group">
+                                    <label for="membercount" class="bmd-label-floating">Family Members</label>
+                                    <input type="number" max="10" class="form-control" id="membercount" data-bind="value: registerModel.membercount">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <button type="button" class="btn btn-rose pull-right" data-bind="click: registerModel.register">Register Member</button>
+                              </div>
+                          </div> 
+
                       </div>
+                      <hr/>
+                      <div class="row">
+                        <div class="col-sm-12" id="familydetails"></div>
+                      </div> 
                   </div>
               </div>
               <footer class="footer">
@@ -143,26 +124,31 @@
   </div>
 <script type="text/x-kendo-template" id="familyTemplate"> 
   # for(var i=0; i < data;i++){#
-  <tr>
-    <td width="10">${i+1}</td>
-    <td width="40">
+  <div class="row" style="margin-left:20px;">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="qrid${i}" class="bmd-label-floating">QR ID</label>
+        <input type="text" class="form-control" id="qrid${i}">
+      </div>
+    </div>
+    <div class="col-sm-3">
       <div class="form-group">
         <label for="name${i}" class="bmd-label-floating">Name</label>
         <input type="text" class="form-control" id="name${i}">
       </div>
-    </td>
-    <td width="10">
-    <div class="form-group">
-      <label for="age${i}" class="bmd-label-floating">Age</label>
-      <input type="text" class="form-control" id="age${i}">
     </div>
-    </td>
-    <td width="40">
-    <div class="form-group">
-      <label for="sport${i}" class="bmd-label-floating">Sport</label>
-      <input type="text" class="form-control" id="sport${i}">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="age${i}" class="bmd-label-floating">Age</label>
+        <input type="text" class="form-control" id="age${i}">
+      </div>
     </div>
-    </td>
-  </tr>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="sport${i}" class="bmd-label-floating">Sport</label>
+        <input type="text" class="form-control" id="sport${i}">
+      </div>
+    </div>
+  </div>
   #}#                                                 
 </script>

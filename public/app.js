@@ -5,22 +5,24 @@
         data: {},
         user:{},
         test:false,
-        baseUrl: "http://localhost:8100/yeskindia/api",
+        prod:"post.yeskindia.org",
+        localhost:"localhost",
+        baseUrl: "",
         api:{
             login:"/login/",
-            debitPts:"/",
-            creditPts:"/",
-            creditReward:"/",
-            cancelPts:"/",
-            editPts:"/",
-            cancelReward:"/",
-            editReward:"/",
-            issueCard:"/",
-            spotRegister:"/",
-            exportData:"/",
+            debitPts:"/pts/debitPts/",
+            creditPts:"/pts/creditPts/",
+            creditReward:"/pts/creditReward/",
+            cancelPts:"/pts/cancelPts/",
+            editPts:"/pts/editPts/",
+            cancelReward:"/cancelRewards/",
+            editReward:"/pts/editRewards",
+            issueCard:"/user/issueCard/",
+            registerMember:"/user/registerMember",
+            transactions:"/user/transactions/",
             gameChanger:"/",
-            blockUser:"/",
-            blockQR:"/",
+            blockUser:"/user/blockUser/",
+            blockCard:"/card/blockCard/",
             leadingVendorByTime:"/",
             leadingVendorByPopular:"/",
             leadingPlayerChamp:"/",
@@ -30,10 +32,11 @@
             leadingStudent:"/",
             leadingGame:"/",
             getGamesWithPts:"/",
-            getQRCode:"/",
-            findInvitee:"/",
-            findVendor:"/",
-            updateFamily:"/",
+            userSearch:"/user/userSearch",
+            findVendor:"/user/vendor/",
+            registerFamily:"/user/registerFamily",
+            getAllCard:"/card/getAllCard",
+            getCardStatus:"/card/getCardStatus"
         },
         
         data:"data",
@@ -61,6 +64,7 @@
     var bootstrap = function() {
         localStorage.setItem("culture","en")
         $(function() {
+            app.baseUrl = "http://"+app.localhost+":8100/yeskindia/api";
             app.mobileApp = new kendo.mobile.Application(document.body, {
                 transition: 'slide',
                 skin: 'nova',
@@ -120,16 +124,17 @@
         $.ajax({
             async: false,
             type: "POST",
-            url: url,
+            url: this.baseUrl+url,
             data: JSON.stringify(data),
-            dataType: "application/json",
+            contentType: 'application/json',
             complete: function (jqxhr, txt_status) {
                 if(result != null && result != "" && result != undefined){
                     try{
-                        result = JSON.parse(jqxhr);
-                        result = result.responseText;
+                        result = jqxhr.responseText;
+                        console.log(result);
+                        result = typeof result != "object" ? JSON.parse(result) : result;
                     }catch(e){
-                        result = { "message":app.strings.error.unknown }
+                        result = { "message":app.gl().error.E01 }
                     }
                 }
             }
@@ -151,7 +156,7 @@
                         result = typeof result != "object" ? JSON.parse(result) : result;
                     }catch(e){
                         console.log(e);
-                        result = { "message":app.gl().error.unknown }
+                        result = { "message":app.gl().error.E01 }
                     }
                 }
             }
@@ -169,23 +174,28 @@
                 type:101
             }
         }else{
-            response = app.getData(this.api.login+"/"+username+"/"+pwd);
+            response = app.getData(this.api.login+username+"/"+pwd);
         }
         return response;
+    }
+
+    app.findbyno = function(mobileno){
+            var url = this.api.userSearch;
+            var data ={
+                "qrId":"",
+                "mobileNbr" : mobileno
+            }
+        return this.postData(url,data);
     }
 
     app.redirect = function(type){
 
         switch(type){
             case 101: app.mobileApp.navigate("components/vendor/vendor.html"); break;
-            case "RCH": app.mobileApp.navigate("components/recharge/recharge.html"); break;
-            /*case "ADM": app.mobileApp.navigate("components/admin/admin.html");
-            case "DSH": app.mobileApp.navigate("components/home/vendor.html");
-            case "SPT": app.mobileApp.navigate("components/home/vendor.html");
-            case "MNT": app.mobileApp.navigate("components/home/vendor.html");
-            case "REG": app.mobileApp.navigate("components/home/vendor.html");
-            case "SLF": app.mobileApp.navigate("components/home/vendor.html");
-            case "LDR": app.mobileApp.navigate("components/home/vendor.html");*/
+            case 100: app.mobileApp.navigate("components/dashboard/dashboard.html"); break;
+            case 103: app.mobileApp.navigate("components/recharge/recharge.html");break;
+            case 104: app.mobileApp.navigate("components/sports/sports.html");break;
+            case 107: app.mobileApp.navigate("components/registration/register.html");break;
             case "": break;
 
         }
