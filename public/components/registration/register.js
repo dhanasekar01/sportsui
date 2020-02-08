@@ -25,12 +25,28 @@ app.localization.registerView('register');
             },
             findUser: function(){
                 var IndNum = /^\d{10}$/;
+                var model = registerModel;
                 if(registerModel.mobilenumber != ""){
                     if(IndNum.test(registerModel.mobilenumber)){
                         var response = app.findbyno(registerModel.mobilenumber)
                         if(response){
+                            if(response.response == null){
+                                app.showNotification(response.message);
+                                return false;
+                            }
                             if(response.response.result.length> 0){
+                                var r = response.response.result[0];
                                 
+                                model.set("qrId",r.qrId);
+                                model.set("mobilenumber",r.mobileNo);
+                                model.set("mname",r.memberName);
+                                model.set("clubname",r.clubName);
+                                model.set("region",r.region);
+                                model.set("membercount",r.family);
+
+                                if(family >0 ){
+                                    model.populateFamily(r.mobileNo);
+                                }
                             }
                         }
                     }else{
@@ -47,9 +63,9 @@ app.localization.registerView('register');
                     message += "QR is required <br/>";
                 }
                 var IndNum = /^\d{10}$/;
-                if(model.mobilenumber == ""){
+                if(registerModel.get("mobilenumber") == ""){
                     message += "Mobile Number is required <br/>";
-                } else if(IndNum.test(registerModel.mobilenumber)){
+                } else if(!IndNum.test(registerModel.get("mobilenumber"))){
                     message += "Mobile Number is Invalid <br/>";
                 }
 
@@ -69,7 +85,18 @@ app.localization.registerView('register');
                 var model = registerModel;
 
                 if(model.validateData()){
-
+                    var request = {
+                        qrId:model.qrId,
+                        mobileNo:model.mobilenumber,
+                        memberName:model.mname,
+                        clubName:model.clubname,
+                        region:model.region,
+                        family:model.membercount,
+                        createdId: localStorage.getItem("username"),
+                        type:localStorage.getItem("type")
+                    }
+                    
+                    app.registerMember(request);
                 }
                 
             }

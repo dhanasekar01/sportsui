@@ -164,6 +164,10 @@
         return result;
     }
 
+    app.registerMember = function(req){
+        return app.postData(this.api.registerMember, req);
+    }
+
     app.login = function(username, pwd){
         localStorage.setItem("username",username);
         var response = {} ;

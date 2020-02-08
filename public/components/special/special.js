@@ -1,33 +1,24 @@
 'use strict';
 
-app.leader = kendo.observable({
+app.special = kendo.observable({
     onShow: function () { },
     afterShow: function () { }
 });
-app.localization.registerView('leader');
+app.localization.registerView('special');
 
 (function (parent) {
     var
-        leaderModel = kendo.observable({
-            id:"sport-qr",
+        specialModel = kendo.observable({
+            id:"special-qr",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
-            play: function(){
-                app.stopQRwithHtml(leaderModel.id, leaderModel.htmlCnt);
-
-                var result= app.scan(leaderModel.id);
-                
-                if(result){
-                    app.stopQRwithHtml(leaderModel.id, leaderModel.htmlCnt);
-                }
-
-            },
-            winner: function(){
-
-                
+            special: function(){
+                app.scan(specialModel.id, function (content) {
+                    app.stopQRwithHtml(specialModel.id,app.htmlCnt)
+                });
             }
         });
 
-    parent.set('leaderModel', leaderModel);    
+    parent.set('specialModel', specialModel);    
 
     parent.set('onShow', function (e) {
 
@@ -43,12 +34,11 @@ app.localization.registerView('leader');
 
         setTimeout(function () {
             $('.card').removeClass('card-hidden');
-        }, 700)
-        
+        }, 700);
 
     });
 
     parent.set('afterShow', function (e) {
 
     });
-})(app.leader);
+})(app.special);
