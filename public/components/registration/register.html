@@ -124,8 +124,8 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <button type="button" class="btn btn-default pull-left" data-bind="click:registerModel.registerReset">Reset</button>
-                                <button type="button" class="btn btn-rose pull-right" data-bind="click: registerModel.register">Register Member</button>
+                                <button type="button" id="registerBtn" class="btn btn-default pull-left" data-bind="click:registerModel.registerReset">Reset</button>
+                                <button type="button" id="resetbtn" class="btn btn-rose pull-right" data-bind="click: registerModel.register">Register Member</button>
                               </div>
                           </div> 
                           <div class="col-sm-2">
@@ -161,8 +161,8 @@
   <div class="row" style="margin-left:20px;">
     <div class="col-sm-2">
       <div class="form-group">
-        <label for="qrid${i}" class="bmd-label-floating">QR ID</label>
-        <input type="text" class="form-control" id="qrid${i}">
+        <label for="qrId${i}" class="bmd-label-floating">QR Id</label>
+        <input type="text" class="form-control" id="qrId${i}">
       </div>
     </div>
     <div class="col-sm-3">
@@ -174,15 +174,31 @@
     <div class="col-sm-2">
       <div class="form-group">
         <label for="age${i}" class="bmd-label-floating">Age</label>
-        <input type="text" class="form-control" id="age${i}">
+        <input type="number" max="100" class="form-control" id="age${i}">
       </div>
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label for="sport${i}" class="bmd-label-floating">Sport</label>
-        <input type="text" class="form-control" id="sport${i}">
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios{i}" value="M" >
+            Male
+          </label>
+        </div>
+
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios{i}" value="F"  >
+            Female
+          </label>
+        </div>
       </div>
     </div>
   </div>
-  #}#                                                 
+  #}#    
+  <div class="row">
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-rose pull-right" id="registerFamily">Add Family</button>
+    </div>
+  </div>                                             
 </script>

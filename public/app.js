@@ -169,6 +169,10 @@
         return app.postData(this.api.registerMember, req);
     }
 
+    app.registerFamily = function(req){
+        return app.postData(this.api.registerFamily, req);
+    }
+
     app.login = function(username, pwd){
         localStorage.setItem("username",username);
         var response = {} ;

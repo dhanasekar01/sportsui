@@ -11,6 +11,7 @@ app.localization.registerView('register');
         registerModel = kendo.observable({
             id:"register-qr",
             qrId:"",
+            isVisibile:true,
             mobilenumber:"",
             genderValue:"",
             carno:"",
@@ -62,7 +63,7 @@ app.localization.registerView('register');
                 if(registerModel.mobilenumber != ""){
                     if(IndNum.test(registerModel.mobilenumber)){
                         var response = app.findbyno(registerModel.mobilenumber)
-                        if(response){
+                        if(response.response != null){
                             if(response.response.result!=null && response.response.result.length == 0){
                                 var mobileNo = registerModel.mobilenumber;
                                model.registerReset();
@@ -178,15 +179,53 @@ app.localization.registerView('register');
 
         $("#membercount").on("change",function(){
             var count = $("#membercount").val();
+            count = count != "" ? parseInt(count):  count;
             var template = kendo.template($("#familyTemplate").html());
+            $("#registerBtn, #resetbtn").show()
+            if(count > 0){
+                $("#registerBtn, #resetbtn").hide()
+                var tempData = {
+                    data: count
+                }
+                var result = template(tempData);
+                $("#familydetails").html(result);
 
-            var tempData = {
-                data: count
+                $("#registerFamily").on("click",function(){
+                    registerModel.register();
+                    var request = [];
+                    for(var i = 0 ; i< count ; i++){
+                        var qrId = $("#qrId"+i).val();
+                        var age = $("#age"+i).val();
+                        var gender = $("input[name=optionsRadios"+i+"]").val();
+                        var name = $("#name"+i).val();
+                        var pts = 0;
+                        age = age != "" ? parseInt(age): 0;
+
+                        if(age > 0 && age < 19){
+                            pts = 500;
+                        }
+
+                        var family = {
+                            phoneNo:registerModel.mobilenumber,
+                            name :name,
+                            qrId:qrId,
+                            age:age,
+                            gender:gender,
+                            memberId:registerModel.qrId,
+                            status:"A",
+                            createdId:localStorage.getItem("username"),
+                            pts:pts
+                        }
+
+                        request.push(family);
+
+
+                    }
+
+                    var response = app.registerFamily(request);
+
+                });
             }
-            var result = template(tempData);
-            $("#familydetails").html(result);
-
-            
 
         });
 
