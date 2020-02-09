@@ -36,7 +36,8 @@
             findVendor:"/user/vendor/",
             registerFamily:"/user/registerFamily",
             getAllCard:"/card/getAllCard",
-            getCardStatus:"/card/getCardStatus"
+            getCardStatus:"/card/getCardStatus",
+            special:"/pts/special/"
         },
         
         data:"data",
@@ -183,6 +184,15 @@
         return response;
     }
 
+    app.findUser = function(name){
+        var url = this.api.userSearch;
+        var data ={
+            "qrId":"",
+            "name" : name
+        }
+    return this.postData(url,data);
+}
+
     app.findbyno = function(mobileno){
             var url = this.api.userSearch;
             var data ={
@@ -200,6 +210,7 @@
             case 103: app.mobileApp.navigate("components/recharge/recharge.html");break;
             case 104: app.mobileApp.navigate("components/sports/sports.html");break;
             case 107: app.mobileApp.navigate("components/registration/register.html");break;
+            case 110: app.mobileApp.navigate("components/special/special.html");break;
             case "": break;
 
         }

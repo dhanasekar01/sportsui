@@ -832,4 +832,10 @@ body {
     left: 0;
   }
 }
+.k-list-container,.k-animation-container{
+  width: 200px!important;
+}
 
+#autocomplete_listbox{
+  list-style-type: none;
+}

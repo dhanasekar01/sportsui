@@ -12,15 +12,48 @@ app.localization.registerView('register');
             id:"register-qr",
             qrId:"",
             mobilenumber:"",
+            genderValue:"",
+            carno:"",
             mname:"",
             clubname:"",
             region:"",
             membercount:0,
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
+            users: [],
+            userchange:function(){
+                var searchKey = $("#autocomplete").val()
+                var response = app.findUser(searchKey);
+                if(response.response == null){
+                }
+                if(response.response.result.length> 0){
+                    registerModel.set("users",response.response.result);
+                }
+
+                var autocomplete = $("#autocomplete").data("kendoAutoComplete");
+                    var dataSource = new kendo.data.DataSource({
+                        data: registerModel.users
+                      });
+                    autocomplete.setDataSource(dataSource);
+                    autocomplete.search(searchKey);
+            },
             scan: function(){
                 app.scan(registerModel.id, function (content) {
                     $(':focus').val(content);
                 });
+
+            },
+            select: function(e){
+                var model = registerModel;
+                var r = e.dataItem;
+                $("#autocomplete").val("");
+                model.set("qrId",r.qrId);
+                model.set("mobilenumber",r.mobileNo);
+                model.set("mname",r.memberName);
+                model.set("clubname",r.clubName);
+                model.set("region",r.region);
+                model.set("membercount",r.family);
+                model.set("carno",r.carNo);
+                model.set("genderValue",r.gender);
 
             },
             findUser: function(){
@@ -30,11 +63,12 @@ app.localization.registerView('register');
                     if(IndNum.test(registerModel.mobilenumber)){
                         var response = app.findbyno(registerModel.mobilenumber)
                         if(response){
-                            if(response.response == null){
-                                app.showNotification(response.message);
-                                return false;
+                            if(response.response.result!=null && response.response.result.length == 0){
+                                var mobileNo = registerModel.mobilenumber;
+                               model.registerReset();
+                               model.set("mobilenumber",mobileNo);
                             }
-                            if(response.response.result.length> 0){
+                            if(response.response.result!=null && response.response.result.length> 0){
                                 var r = response.response.result[0];
                                 
                                 model.set("qrId",r.qrId);
@@ -43,8 +77,10 @@ app.localization.registerView('register');
                                 model.set("clubname",r.clubName);
                                 model.set("region",r.region);
                                 model.set("membercount",r.family);
+                                model.set("genderValue",r.gender);
+                                model.set("carno",r.carNo);
 
-                                if(family >0 ){
+                                if(r.family >0 ){
                                     model.populateFamily(r.mobileNo);
                                 }
                             }
@@ -53,6 +89,21 @@ app.localization.registerView('register');
                         app.showNotification("Invalid Mobile Number");
                     }
                 }
+            },
+            populateFamily: function(){
+
+            },
+            registerReset:function(){
+                var model = registerModel;
+                model.set("qrId","");
+                model.set("mobilenumber","");
+                model.set("mname","");
+                model.set("clubname","");
+                model.set("region","");
+                model.set("membercount",0);
+                model.set("genderValue","");
+                model.set("carno","");
+
             },
             validateData: function () {
                 var model = registerModel;
@@ -102,7 +153,8 @@ app.localization.registerView('register');
             }
         });
 
-    parent.set('registerModel', registerModel);    
+    parent.set('registerModel', registerModel);   
+
 
     parent.set('onShow', function (e) {
 
@@ -115,6 +167,14 @@ app.localization.registerView('register');
             $full_page.css('background-size', 'contain');
             $full_page.fadeIn('fast');
         });
+
+        $("#autocomplete").on("keyup",function(){
+            if($(this).val() != "" && $(this).val().length >= 3){
+                registerModel.userchange();
+            }
+        });
+
+       
 
         $("#membercount").on("change",function(){
             var count = $("#membercount").val();

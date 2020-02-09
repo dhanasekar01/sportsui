@@ -1,4 +1,4 @@
-  <div data-role="view" data-title="register" data-layout="main-nonav" data-model="app.register" data-show="app.register.onShow"
+  <div data-role="view" data-title="YESKINDIA - Registration" data-layout="main-nonav" data-model="app.register" data-show="app.register.onShow"
       data-after-show="app.register.afterShow" id="registerScreen" data-use-native-scrolling="true">
       <div class="wrapper wrapper-full-page">
           <div class="full-page login-page" filter-color="black" data-image="">
@@ -93,15 +93,49 @@
                                 </div>
                                 <div class="col-sm-3">
                                   <div class="form-group">
+                                    <div class="radio">
+                                      <label>
+                                        <input type="radio" name="optionsRadios" value="M" data-bind="checked: registerModel.genderValue">
+                                        Male
+                                      </label>
+                                    </div>
+                    
+                                    <div class="radio">
+                                      <label>
+                                        <input type="radio" name="optionsRadios" value="F"  data-bind="checked: registerModel.genderValue">
+                                        Female
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <div class="form-group">
                                     <label for="membercount" class="bmd-label-floating">Family Members</label>
                                     <input type="number" max="10" class="form-control" id="membercount" data-bind="value: registerModel.membercount">
                                   </div>
                                 </div>
+                                <div class="form-group">
+                                  <label for="carno" class="bmd-label-floating">Car Number</label>
+                                  <input type="text" class="form-control" id="carno" data-bind="value: registerModel.carno">
+                                </div>
                               </div>
                               <div class="row">
+                                <button type="button" class="btn btn-default pull-left" data-bind="click:registerModel.registerReset">Reset</button>
                                 <button type="button" class="btn btn-rose pull-right" data-bind="click: registerModel.register">Register Member</button>
                               </div>
                           </div> 
+                          <div class="col-sm-2">
+                            <div class="form-group">
+                              <label for="autocomplete" class="bmd-label-floating">Find Member</label>
+                              <input type="text" class="k-input" style="width: 100%;" 
+                              id="autocomplete" data-role="autocomplete" data-text-field="memberName" 
+                              data-bind="value: registerModel.selectedMember, events:{select : registerModel.select">
+                            </div>
+                          </div>
 
                       </div>
                       <hr/>
