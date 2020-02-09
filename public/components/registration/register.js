@@ -196,11 +196,11 @@ app.localization.registerView('register');
                     for(var i = 0 ; i< count ; i++){
                         var qrId = $("#qrId"+i).val();
                         var age = $("#age"+i).val();
-                        var gender = $("input[name=optionsRadios"+i+"]").val();
+                        var gender = $("input[name=optionsRadios"+i+"]:checked").val();
                         var name = $("#name"+i).val();
                         var pts = 0;
                         age = age != "" ? parseInt(age): 0;
-
+console.log($("input[name=optionsRadios"+i+"]:checked").val());
                         if(age > 0 && age < 19){
                             pts = 500;
                         }
@@ -223,6 +223,7 @@ app.localization.registerView('register');
                     }
 
                     var response = app.registerFamily(request);
+                    app.showNotification(response.response.responseMessage);
 
                 });
             }
