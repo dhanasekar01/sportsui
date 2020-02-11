@@ -5,7 +5,7 @@
         data: {},
         user:{},
         test:false,
-        prod:"back.yeskindia.org",
+        prod:"back.yeskindia.com",
         localhost:"localhost",
         baseUrl: "",
         api:{
