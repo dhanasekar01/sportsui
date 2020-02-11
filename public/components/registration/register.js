@@ -21,6 +21,9 @@ app.localization.registerView('register');
             membercount:0,
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             users: [],
+            gotohome:function(){
+                location.reload(true);
+            },
             userchange:function(){
                 var searchKey = $("#autocomplete").val()
                 var response = app.findUser(searchKey);
@@ -82,7 +85,7 @@ app.localization.registerView('register');
                                 model.set("carno",r.carNo);
 
                                 if(r.family >0 ){
-                                    model.populateFamily(r.mobileNo);
+                                    model.populateFamily(r.mobileNo,r.family);
                                 }
                             }
                         }
@@ -91,8 +94,68 @@ app.localization.registerView('register');
                     }
                 }
             },
-            populateFamily: function(){
+            populateFamily: function(mobile, family){
+                var response = app.getData(app.api.getFamily+"/"+mobile);
+                console.log(response);
+                var count = family;
+                count = count != "" ? parseInt(count):  count;
+                var template = kendo.template($("#familyTemplate").html());
+                $("#registerBtn, #resetbtn").show()
+                if(count > 0){
+                    $("#registerBtn, #resetbtn").hide()
+                    var tempData = {
+                        data: count,
+                        detail: response
+                    }
+                    var result = template(tempData);
+                    $("#familydetails").html(result);
 
+                    $("#registerFamily").on("click",function(){
+                        registerModel.register();
+                        var request = [];
+                        for(var i = 0 ; i< count ; i++){
+                            var qrId = $("#qrId"+i).val();
+                            if(qrId == ""){
+                                app.showNotification("Please Enter the QR ID for Family Member-"+ (i+1));
+                                break;
+                            }
+                            var age = $("#age"+i).val();
+                            var gender = $("input[name=optionsRadios"+i+"]:checked").val();
+                            var name = $("#name"+i).val();
+                            var pts = 0;
+                            age = age != "" ? parseInt(age): 0;
+    console.log($("input[name=optionsRadios"+i+"]:checked").val());
+                            if(age > 0 && age < 19){
+                                pts = 500;
+                            }
+
+                            var family = {
+                                phoneNo:registerModel.mobilenumber,
+                                name :name,
+                                qrId:qrId,
+                                age:age,
+                                gender:gender,
+                                memberId:registerModel.qrId,
+                                status:"A",
+                                createdId:localStorage.getItem("username"),
+                                pts:pts
+                            }
+
+                            request.push(family);
+
+
+                        }
+
+                        var response = app.registerFamily(request);
+                        app.showNotification(response.responseCode == 101 ? response.errorList:  response.responseMessage);
+
+                        if(response.responseCode== 100){
+                            registerModel.registerReset();
+                            ("#familydetails").empty();
+                        }
+
+                    });
+                }
             },
             registerReset:function(){
                 var model = registerModel;
@@ -195,6 +258,10 @@ app.localization.registerView('register');
                     var request = [];
                     for(var i = 0 ; i< count ; i++){
                         var qrId = $("#qrId"+i).val();
+                        if(qrId == ""){
+                            app.showNotification("Please Enter the QR ID for Family Member-"+ (i+1));
+                            break;
+                        }
                         var age = $("#age"+i).val();
                         var gender = $("input[name=optionsRadios"+i+"]:checked").val();
                         var name = $("#name"+i).val();
@@ -223,7 +290,13 @@ console.log($("input[name=optionsRadios"+i+"]:checked").val());
                     }
 
                     var response = app.registerFamily(request);
-                    app.showNotification(response.response.responseMessage);
+                    app.showNotification(response.responseCode == 101 ? response.errorList:  response.responseMessage);
+
+                    if(response.responseCode== 100){
+
+                        registerModel.registerReset();
+                        ("#familydetails").empty();
+                    }
 
                 });
             }

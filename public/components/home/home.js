@@ -25,7 +25,12 @@ app.localization.registerView('home');
                 var cams = homeModel.get("cameras");
                 var index = cams.indexOf(cam);
                 localStorage.setItem("selectedCams",index);
-                app.scanner.start(index);
+                app.scan(homeModel.id, function (content) {
+                    homeModel.set("username",content);
+                    setTimeout(function(){ app.stopQRwithHtml(homeModel.id,app.htmlCnt); }, 3000);
+                    
+                });
+                
             },
             eng:function(){
                 localStorage.setItem("culture","en");

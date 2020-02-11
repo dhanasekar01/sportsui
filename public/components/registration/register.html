@@ -1,4 +1,4 @@
-  <div data-role="view" data-title="YESKINDIA - Registration" data-layout="main-nonav" data-model="app.register" data-show="app.register.onShow"
+<div data-role="view" data-title="YESKINDIA - Registration" data-layout="main-nonav" data-model="app.register" data-show="app.register.onShow"
       data-after-show="app.register.afterShow" id="registerScreen" data-use-native-scrolling="true">
       <div class="wrapper wrapper-full-page">
           <div class="full-page login-page" filter-color="black" data-image="">
@@ -7,7 +7,7 @@
                   <div class="container">
                       <div class="row" style="margin-right: -22px;margin-left: -22px;">
                           <div class="leaderboard-cont leaderboard-green-blue">
-                              <div class="heading" data-bind="text: strings.home.title"></div>
+                              <div class="heading" data-bind="text: strings.home.title,click : registerModel.gotohome"></div>
                               <div class="subheading" data-bind="text: strings.home.abbr"></div>
                               <div class="bar-1"></div>
                               <div class="ring-1"></div>
@@ -157,7 +157,54 @@
       </div>
   </div>
 <script type="text/x-kendo-template" id="familyTemplate"> 
-  # for(var i=0; i < data;i++){#
+
+  # if(detail && detail != null){ var count = data - detail.response.length; for (var i =0; i< detail.response.length;i++){#
+    <div class="row" style="margin-left:20px;">
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label for="qrId${i}" class="bmd-label-floating">QR Id</label>
+          <input type="text" class="form-control" value="${detail.response[i].qrId}" id="qrId${i}">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="name${i}" class="bmd-label-floating">Name</label>
+          <input type="text" class="form-control" value="${detail.response[i].id.name}"  id="name${i}">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <label for="age${i}" class="bmd-label-floating">Age</label>
+          <input type="number" max="100" value="${detail.response[i].age}"  class="form-control" id="age${i}">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group">
+          <div class="radio">
+            <label>
+              #if(detail.response[i].gender == "M") {#
+              <input type="radio" name="optionsRadios${i}" value="M" checked />
+              #}else {#
+                <input type="radio" name="optionsRadios${i}" value="M" />
+                #}#
+              Male
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              #if(detail.response[i].gender == "F") {#
+                <input type="radio" name="optionsRadios${i}" value="F" checked>
+                #}else {#
+                  <input type="radio" name="optionsRadios${i}" value="F" >
+                  #}#
+              Female
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  #}}#
+  # for(var i=0; i < count;i++){#
   <div class="row" style="margin-left:20px;">
     <div class="col-sm-2">
       <div class="form-group">

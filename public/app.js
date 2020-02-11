@@ -5,7 +5,7 @@
         data: {},
         user:{},
         test:false,
-        prod:"post.yeskindia.org",
+        prod:"back.yeskindia.org",
         localhost:"localhost",
         baseUrl: "",
         api:{
@@ -37,14 +37,15 @@
             registerFamily:"/user/registerFamily",
             getAllCard:"/card/getAllCard",
             getCardStatus:"/card/getCardStatus",
-            special:"/pts/special/"
+            special:"/pts/special/",
+            getFamily:"/user/getFamily/"
         },
         
         data:"data",
         htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
         scanner:null,
         localization: {
-            defaultCulture: localStorage.getItem("culture") ? localStorage.getItem("culture"):"en",
+            defaultCulture: localStorage.getItem("culture") ? localStorage.getItem("culture"):"ta",
             cultures: [{
                 name: "English",
                 code: "en"
@@ -65,7 +66,7 @@
     var bootstrap = function() {
         localStorage.setItem("culture","en")
         $(function() {
-            app.baseUrl = "http://"+app.localhost+":8100/yeskindia/api";
+            app.baseUrl = "https://"+app.prod+":8100/yeskindia/api";
             app.mobileApp = new kendo.mobile.Application(document.body, {
                 transition: 'slide',
                 skin: 'nova',

@@ -30,6 +30,18 @@ app.localization.registerView('leader');
         setTimeout(function () {
             $('.card').removeClass('card-hidden');
         }, 700)
+
+
+        var template = kendo.template($("#leaderboardhtmlTemplate").html());
+                
+        var tempData = {
+            data: [
+                {},{},{},{},{},{},{},{},{},{},{},{}
+            ]
+        }
+
+        var result = template(tempData);
+        $("#leaderboardhtml").html(result);
         
 
     });

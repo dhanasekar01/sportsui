@@ -26,7 +26,7 @@ app.use(express.static(__dirname + '/public'));
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-app.listen(3000, function(){
+app.listen(6001, function(){
   console.log('Example app listening on port 3000! Go to http://localhost:3000/')
 
 })
@@ -35,6 +35,6 @@ https.createServer({
   key: fs.readFileSync('server.key'),
   cert: fs.readFileSync('server.crt')
 }, app)
-.listen(6000, function () {
+.listen(443, function () {
   console.log('Example app listening on port 443! Go to https://localhost:443/')
 })

@@ -612,7 +612,7 @@ body {
   color: var(--grey-3);
 }
 .list__header {
-  padding: 3rem 2rem;
+  padding: 1rem 1rem;
   background: white;
   border-top-left-radius: .4rem;
   border-top-right-radius: .4rem;

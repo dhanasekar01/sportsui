@@ -1,0 +1,84 @@
+<div data-role="view" data-title="champion" data-layout="main-nonav" data-model="app.champion" data-show="app.champion.onShow"
+    data-after-show="app.champion.afterShow" id="championScreen" data-use-native-scrolling="true">
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page login-page" filter-color="leadercolor" data-image="" style="background-color: #b7f0f0;">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+            <div class="content">
+                <div class="container">
+                    <img src="img/logo.png" style="width: 75px;position: absolute;top:0;right: -65px;">
+                    <h1 style="text-align:center;color:white; writing-mode: vertical-rl;
+                    text-orientation: upright;position: fixed;left: 5px;top:10vh;font-size: 40px;font-weight: bolder;">
+                    MALE JUNIOR</h1>
+                    <h1 style="text-align:center;color:white; writing-mode: vertical-rl;
+                    text-orientation: upright;position: fixed;right: 0px;top:10vh;font-size: 40px;font-weight: bolder;">
+                    CHAMPION</h1>
+                    <div id="champions">
+
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right text-white" style="color:white">
+                        &copy;
+                        <a style="color:white" data-bind="text:strings.home.company"> YeskIndia </a> <span
+                            data-bind="text: strings.home.moto"></span>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<script type="text/x-kendo-template" id="championTemplate">
+
+# var i,j,temparray,chunk = 4; #
+#for (i=0,j=data.length; i<j; i+=chunk) { #
+ #   temparray = data.slice(i,i+chunk); #
+
+#for(var k=0;k< temparray.length;k++) {  console.log(data.length)#
+    
+        #if(k== 0){#
+            <div class="row">
+        # } #
+        <div class= "col-sm-3" >
+            <div class="card card-pricing" style="max-height: 200px;min-height: 200px;">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="card-body">
+                            <div class="card-icon icon-rose ">
+                              <img src="img/cricket.png" style="width:80px;">
+                            </div>
+                            <h3 class="card-title" style="font-weight:bolder">Aadhavan</h3>
+                            <p class="card-description">Govt. Hr. Sec. School Chennai</p>
+                          </div>
+                    </div>
+                    
+                    <div class="col-sm-3" style="background-color:\#fcd326;max-height: 200px;min-height: 200px;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <br />
+                                <img src="img/logo.png" style="width:50px;" />
+                                <br />
+                                <br />
+                                <b>YESK Point</b>
+                                <p style="font-weight:500;font-size:22px"><b>801 </b></p>
+                                
+                            </div>
+                            <div class="col-sm-12">
+                                <img src="img/cup.png" width="60px;"/>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        #if(k == 3){#
+            </div>
+        #}#
+    #} }#
+
+    
+</script>
