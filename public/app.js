@@ -66,7 +66,7 @@
     var bootstrap = function() {
         localStorage.setItem("culture","en")
         $(function() {
-            app.baseUrl = app.localhost+"/yeskindia/api";
+            app.baseUrl = app.prod+"/yeskindia/api";
             app.mobileApp = new kendo.mobile.Application(document.body, {
                 transition: 'slide',
                 skin: 'nova',
