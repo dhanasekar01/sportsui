@@ -10,24 +10,45 @@ app.localization.registerView('sports');
     var
         sportsModel = kendo.observable({
             id:"sport-qr",
+            sport:"",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             play: function(){
-                app.stopQRwithHtml(sportsModel.id, sportsModel.htmlCnt);
+                var pts = 50;
+                var sportResponse = app.getData(app.api.getGamesWithPts+sportsModel.sport);
 
-                var result= app.scan(sportsModel.id);
-                
-                if(result){
-                    app.stopQRwithHtml(sportsModel.id, sportsModel.htmlCnt);
+                if(sportResponse != null){
+                    pts =  sportResponse.response.ptsValue;
+                    console.log(pts);
                 }
+
+
+                app.scan(sportsModel.id, function (content) {
+                    var request = {
+                        customerId: content,
+                        vendorId:localStorage.getItem("username"),
+                        yeskPoints:pts,
+                        amount:0,
+                        rewardPoints:0,
+                        transType:"D",
+                        userType:localStorage.getItem("type")
+                    }
+                    var response = app.postData(app.api.debitPts, request);
+                    if(response != null &&  response.isSuccess){
+                       app.showNotification("Success");
+                    }
+                    app.stopQRwithHtml(sportsModel.id,app.htmlCnt);
+                });
 
             },
             winner: function(){
 
-                var result= app.scan("sport-qr");
-
-                if(result){
-                    app.stopQRwithHtml(sportsModel.id, sportsModel.htmlCnt);
-                }
+                app.scan(sportsModel.id, function (content) {
+                    var response = app.getData(app.api.special+content+"/"+sportsModel.sport+"/"+localStorage.getItem("username"))
+                    app.showNotification(response.responseMessage);
+                    if(response.response != null)
+                    sportsModel.set("sport","");
+                    app.stopQRwithHtml(sportsModel.id,app.htmlCnt)
+                });
             }
         });
 
@@ -48,6 +69,13 @@ app.localization.registerView('sports');
         setTimeout(function () {
             $('.card').removeClass('card-hidden');
         }, 700)
+
+
+        var vendorResponse = app.getData(app.api.findVendor+localStorage.getItem("username"));
+
+        if(vendorResponse != null ){
+            sportsModel.set("sport",vendorResponse.sport);
+        }
 
     });
 

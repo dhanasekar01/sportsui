@@ -102,9 +102,16 @@ app.localization.registerView('register');
                 var template = kendo.template($("#familyTemplate").html());
                 $("#registerBtn, #resetbtn").show()
                 if(count > 0){
+                    if(response != null && response.response != null){
+                        count = count - response.response.length;
+                    }
+                    for(var i =0;i < count ;i++){
+                       var emptyData ={"id":{"phoneNo":"","name":""},"qrId":"","memberId":"","age":null,"gender":"","status":"1","createTs":null};
+                        response.response.push(emptyData);
+                    };
+                    
                     $("#registerBtn, #resetbtn").hide()
                     var tempData = {
-                        data: count,
                         detail: response
                     }
                     var result = template(tempData);
@@ -207,6 +214,8 @@ app.localization.registerView('register');
                         clubName:model.clubname,
                         region:model.region,
                         family:model.membercount,
+                        gender:model.genderValue,
+                        carNo:model.carno,
                         createdId: localStorage.getItem("username"),
                         type:localStorage.getItem("type")
                     }
@@ -238,17 +247,22 @@ app.localization.registerView('register');
             }
         });
 
-       
-
         $("#membercount").on("change",function(){
             var count = $("#membercount").val();
             count = count != "" ? parseInt(count):  count;
             var template = kendo.template($("#familyTemplate").html());
             $("#registerBtn, #resetbtn").show()
             if(count > 0){
+                var detail = {
+                    response:[]
+                }
+                for(var i =0;i < count ;i++){
+                    var emptyData ={"id":{"phoneNo":"","name":""},"qrId":"","memberId":"","age":null,"gender":"","status":"1","createTs":null};
+                     detail.response.push(emptyData);
+                 };
                 $("#registerBtn, #resetbtn").hide()
                 var tempData = {
-                    data: count
+                    detail:detail
                 }
                 var result = template(tempData);
                 $("#familydetails").html(result);
@@ -283,8 +297,10 @@ console.log($("input[name=optionsRadios"+i+"]:checked").val());
                             createdId:localStorage.getItem("username"),
                             pts:pts
                         }
-
-                        request.push(family);
+                        console.log(family);
+                        if(qrId != null && qrId != "" && name != "" && name != null){
+                            request.push(family);
+                        }
 
 
                     }
@@ -295,10 +311,12 @@ console.log($("input[name=optionsRadios"+i+"]:checked").val());
                     if(response.responseCode== 100){
 
                         registerModel.registerReset();
-                        ("#familydetails").empty();
+                        $("#familydetails").empty();
                     }
 
                 });
+            } else{
+                $("#familydetails").empty();
             }
 
         });

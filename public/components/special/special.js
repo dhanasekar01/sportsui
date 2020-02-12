@@ -13,10 +13,7 @@ app.localization.registerView('special');
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             sport:"",
             special: function(){
-                var response = app.getData(app.api.special+"12345/"+specialModel.sport+"/"+localStorage.getItem("username"))
-                console.log(response);
                 app.scan(specialModel.id, function (content) {
-                   
                     var response = app.getData(app.api.special+content+"/"+specialModel.sport+"/"+localStorage.getItem("username"))
                     app.showNotification(response.responseMessage);
                     if(response.response != null)

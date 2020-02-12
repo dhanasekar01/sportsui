@@ -5,8 +5,8 @@
         data: {},
         user:{},
         test:false,
-        prod:"back.yeskindia.com",
-        localhost:"localhost",
+        prod:"https://back.yeskindia.com",
+        localhost:"http://localhost:8100",
         baseUrl: "",
         api:{
             login:"/login/",
@@ -31,7 +31,7 @@
             leadingSchool:"/",
             leadingStudent:"/",
             leadingGame:"/",
-            getGamesWithPts:"/",
+            getGamesWithPts:"/pts/gamepts/",
             userSearch:"/user/userSearch",
             findVendor:"/user/vendor/",
             registerFamily:"/user/registerFamily",
@@ -66,7 +66,7 @@
     var bootstrap = function() {
         localStorage.setItem("culture","en")
         $(function() {
-            app.baseUrl = "https://"+app.prod+"/yeskindia/api";
+            app.baseUrl = app.localhost+"/yeskindia/api";
             app.mobileApp = new kendo.mobile.Application(document.body, {
                 transition: 'slide',
                 skin: 'nova',
