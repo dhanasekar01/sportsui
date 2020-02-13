@@ -6,7 +6,7 @@
         user:{},
         test:false,
         prod:"https://back.yeskindia.com",
-        localhost:"http://localhost:8100",
+        localhost:"http://localhost:8080",
         baseUrl: "",
         api:{
             login:"/login/",
@@ -60,7 +60,8 @@
             getSchoolChampFemaleSenior:"/pts/schoolChampions/F",
             ageGroupJunior :"/5/9",
             ageGroupMiddle :"/10/14",
-            ageGroupSenior :"/15/18"
+            ageGroupSenior :"/15/18",
+            getPoints :"/user/getPoints/"
         },
         data:"data",
         htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',

@@ -11,23 +11,18 @@ app.localization.registerView('search');
         searchModel = kendo.observable({
             id:"sport-qr",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
-            play: function(){
-                app.stopQRwithHtml(searchModel.id, searchModel.htmlCnt);
+            search: function(){
+                var phoneNo = $("#parentNumber").val();
+                var response = app.getData(app.api.getPoints+phoneNo);
 
-                var result= app.scan(searchModel.id);
+                var template = kendo.template($("#searchTemplate").html());
                 
-                if(result){
-                    app.stopQRwithHtml(searchModel.id, searchModel.htmlCnt);
+                var tempData = {
+                    data: response
                 }
 
-            },
-            winner: function(){
-
-                var result= app.scan("sport-qr");
-
-                if(result){
-                    app.stopQRwithHtml(searchModel.id, searchModel.htmlCnt);
-                }
+                var result = template(tempData);
+                $("#searchHtml").html(result);
             }
         });
 

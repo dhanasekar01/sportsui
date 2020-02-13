@@ -221,7 +221,7 @@ app.localization.registerView('register');
                     }
                     
                     var response = app.registerMember(request);
-                    if(response != null && response.responseMessage!=null){
+                    if(response != null && response.responseMessage!=null && model.membercount == 0 ){
                         app.showNotification(response.responseMessage);
                         registerModel.registerReset();
                     }
@@ -291,7 +291,7 @@ console.log($("input[name=optionsRadios"+i+"]:checked").val());
                         }
 
                         var family = {
-                            phoneNo:registerModel.mobilenumber,
+                            phoneNo:$("#mobilenumber").val(),
                             name :name,
                             qrId:qrId,
                             age:age,
