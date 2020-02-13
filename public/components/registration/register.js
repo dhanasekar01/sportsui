@@ -280,12 +280,15 @@ app.localization.registerView('register');
                             app.showNotification("Please Enter the QR ID for Family Member-"+ (i+1));
                             break;
                         }
+
                         var age = $("#age"+i).val();
                         var gender = $("input[name=optionsRadios"+i+"]:checked").val();
                         var name = $("#name"+i).val();
+                        
                         var pts = 0;
+
                         age = age != "" ? parseInt(age): 0;
-console.log($("input[name=optionsRadios"+i+"]:checked").val());
+
                         if(age > 0 && age < 19){
                             pts = 500;
                         }
@@ -329,7 +332,7 @@ console.log($("input[name=optionsRadios"+i+"]:checked").val());
             $('.card').removeClass('card-hidden');
         }, 700)
 
-        //registerModel.scan();
+        registerModel.scan();
 
         
         

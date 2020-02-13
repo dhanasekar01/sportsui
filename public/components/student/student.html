@@ -1,0 +1,114 @@
+<div data-role="view" data-title="YESKINDIA - Registration" data-layout="main-nonav" data-model="app.student" data-show="app.student.onShow"
+      data-after-show="app.student.afterShow" id="studentScreen" data-use-native-scrolling="true">
+      <div class="wrapper wrapper-full-page">
+          <div class="full-page login-page" filter-color="black" data-image="">
+              <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+              <div class="content">
+                  <div class="container">
+                      <div class="row" style="margin-right: -22px;margin-left: -22px;">
+                          <div class="leaderboard-cont leaderboard-green-blue">
+                              <div class="heading" data-bind="text: strings.home.title,click : studentModel.gotohome"></div>
+                              <div class="subheading" data-bind="text: strings.home.abbr"></div>
+                              <div class="bar-1"></div>
+                              <div class="ring-1"></div>
+                              <div class="ring-1 inset"></div>
+                              <div class="ring-2"></div>
+                              <div class="ring-2 inset"></div>
+                              <div class="icon">
+                                  <img src="img/logo.png" style="width: 100%";/>
+                              </div>
+                          </div>
+                      </div>
+                      <div id="student-qr" style="z-index:1000;text-align: center;position: fixed;right:0;bottom:30px;width: 320px;" data-bind="click:studentModel.scan">
+                        <br /><img src="/img/scanner.png" style="width:50%">
+                    </div>
+                      <div class="card">
+                        <br/>
+                        <h1 style="text-align: center;">
+                          Student Registration
+                       </h1>
+                        <div class="row">
+                          <div class="col-sm-1">
+
+                          </div>
+                          <div class="col-sm-10">
+                              <div class="row">
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <label for="stud-mobilenumber" class="bmd-label-floating">Mobile Number</label>
+                                      <input type="text" maxlength="10" class="form-control" id="stud-mobilenumber" data-bind="value: studentModel.mobilenumber}">
+                                    </div>
+                                   
+                                  </div>
+                                  <div class="col-sm-3">
+                                    <div class="form-group">
+                                      <label for="stud-qrId" class="bmd-label-floating">QR ID</label>
+                                      <input type="text" class="form-control" id="stud-qrId" data-bind="value: studentModel.qrId">
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-group">
+                                      <label for="stud-mname" class="bmd-label-floating">Student Name</label>
+                                      <input type="text" class="form-control" id="stud-mname" data-bind="value: studentModel.mname">
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <div class="form-group">
+                                    <label for="clubname" class="bmd-label-floating">Teacher</label>
+                                    <input type="text" class="form-control" id="teacher" data-bind="value: studentModel.teacher">
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-group">
+                                    <label for="region" class="bmd-label-floating">School</label>
+                                    <input type="text" class="form-control" id="school" data-bind="value: studentModel.school">
+                                  </div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <div class="form-group">
+                                    <label for="region" class="bmd-label-floating">Age</label>
+                                    <input type="number" class="form-control" id="studentAge" data-bind="value: studentModel.age">
+                                  </div>
+                                </div>
+                                <div class="col-sm-3">
+                                  <div class="form-group">
+                                    <div class="radio">
+                                      <label>
+                                        <input type="radio" name="optionsRadios" value="M" data-bind="checked: studentModel.genderValue">
+                                        Male
+                                      </label>
+                                    </div>
+                    
+                                    <div class="radio">
+                                      <label>
+                                        <input type="radio" name="optionsRadios" value="F"  data-bind="checked: studentModel.genderValue">
+                                        Female
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              
+                              <div class="row">
+                                <button type="button" id="studentBtn" class="btn btn-default pull-left" data-bind="click:studentModel.studentReset">Reset</button>
+                                <button type="button" id="resetbtn" class="btn btn-rose pull-right" data-bind="click: studentModel.student">Register Student</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <footer class="footer">
+                  <div class="container-fluid">
+                      <p class="copyright pull-right text-white" style="color:white">
+                          &copy;
+                          <a style="color:white" data-bind="text:strings.home.company"> YeskIndia </a> <span
+                              data-bind="text: strings.home.moto"></span>
+                      </p>
+                  </div>
+              </footer>
+          </div>
+      </div>
+  </div>

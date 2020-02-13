@@ -12,11 +12,23 @@ app.localization.registerView('vendor');
             id:"vendor-qr",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             pay: function(){
-                var result= app.scan(vendorModel.id, function (content) {
-                    console.log(content);
-                    app.stopQRwithHtml(vendorModel.id,vendorModel.htmlCnt)
+
+                app.scan(vendorModel.id, function (content) {
+                    var request = {
+                        customerId: content,
+                        vendorId:localStorage.getItem("username"),
+                        yeskPoints:0,
+                        amount:0,
+                        rewardPoints:0,
+                        transType:"M",
+                        userType:localStorage.getItem("type")
+                    }
+                    var response = app.postData(app.api.noteTransaction, request);
+                    if(response != null &&  response.isSuccess){
+                       app.showNotification("Success");
+                    }
+                    app.stopQRwithHtml(vendorModel.id,app.htmlCnt);
                 });
-                
 
             }
         });
