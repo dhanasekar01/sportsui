@@ -38,14 +38,35 @@
             getAllCard:"/card/getAllCard",
             getCardStatus:"/card/getCardStatus",
             special:"/pts/special/",
-            getFamily:"/user/getFamily/"
+            getFamily:"/user/getFamily/",
+            getChampionMaleJunior :"/pts/championsMale/M",
+            getChampionMaleMiddle :"/pts/championsMale/M/",
+            getChampionMaleSenior :"/pts/championsMale/M/",
+            getChampionFemaleJunior :"/pts/championsMale/F/",
+            getChampionFemaleMiddle :"/pts/championsMale/F/",
+            getChampionFemaleSenior :"/pts/championsMale/F/",
+            getPopularGame :"/pts/popularGame/",
+            getChampAllMaleJunior:"/pts/memberChampionsAll/M/",
+            getChampAllMaleMiddle:"/pts/memberChampionsAll/M/",
+            getChampAllMaleSenior:"/pts/memberChampionsAll/M/",
+            getChampAllFemaleJunior:"/pts/memberChampionsAll/F/",
+            getChampAllFemaleMiddle:"/pts/memberChampionsAll/F/",
+            getChampAllFemaleSenior:"/pts/memberChampionsAll/F/",
+            getSchoolChampMaleJunior:"/pts/schoolChampions/M/",
+            getSchoolChampMaleMiddle:"/pts/schoolChampions/M/",
+            getSchoolChampMaleSenior:"/pts/schoolChampions/M/",
+            getSchoolChampFemaleJunior:"/pts/schoolChampions/F",
+            getSchoolChampFemaleMiddle:"/pts/schoolChampions/F",
+            getSchoolChampFemaleSenior:"/pts/schoolChampions/F",
+            ageGroupJunior :"/5/9",
+            ageGroupMiddle :"/10/14",
+            ageGroupSenior :"/15/18"
         },
-        
         data:"data",
         htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
         scanner:null,
         localization: {
-            defaultCulture: localStorage.getItem("culture") ? localStorage.getItem("culture"):"ta",
+            defaultCulture: localStorage.getItem("culture") ? localStorage.getItem("culture"):"en",
             cultures: [{
                 name: "English",
                 code: "en"

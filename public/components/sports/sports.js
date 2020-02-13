@@ -13,14 +13,7 @@ app.localization.registerView('sports');
             sport:"",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             play: function(){
-                var pts = 50;
-                var sportResponse = app.getData(app.api.getGamesWithPts+sportsModel.sport);
-
-                if(sportResponse != null){
-                    pts =  sportResponse.response.ptsValue;
-                    console.log(pts);
-                }
-
+                var pts = 20;
 
                 app.scan(sportsModel.id, function (content) {
                     var request = {
@@ -41,13 +34,28 @@ app.localization.registerView('sports');
 
             },
             winner: function(){
+                var pts = 50;
+                var sportResponse = app.getData(app.api.getGamesWithPts+sportsModel.sport);
 
+                if(sportResponse != null){
+                    pts =  sportResponse.response.ptsValue;
+                    console.log(pts);
+                }
                 app.scan(sportsModel.id, function (content) {
-                    var response = app.getData(app.api.special+content+"/"+sportsModel.sport+"/"+localStorage.getItem("username"))
-                    app.showNotification(response.responseMessage);
-                    if(response.response != null)
-                    sportsModel.set("sport","");
-                    app.stopQRwithHtml(sportsModel.id,app.htmlCnt)
+                    var request = {
+                        customerId: content,
+                        vendorId:localStorage.getItem("username"),
+                        yeskPoints:0,
+                        amount:0,
+                        rewardPoints:pts,
+                        transType:"C",
+                        userType:localStorage.getItem("type")
+                    }
+                    var response = app.postData(app.api.creditReward, request);
+                    if(response != null &&  response.isSuccess){
+                       app.showNotification("Success");
+                    }
+                    app.stopQRwithHtml(sportsModel.id,app.htmlCnt);
                 });
             }
         });

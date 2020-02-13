@@ -181,7 +181,7 @@ app.localization.registerView('register');
 
                 var message ="";
 
-                if(model.qrId == ""){
+                if(model.qrId == "" && $("#qrId").val()){
                     message += "QR is required <br/>";
                 }
                 var IndNum = /^\d{10}$/;
@@ -220,7 +220,11 @@ app.localization.registerView('register');
                         type:localStorage.getItem("type")
                     }
                     
-                    app.registerMember(request);
+                    var response = app.registerMember(request);
+                    if(response != null && response.responseMessage!=null){
+                        app.showNotification(response.responseMessage);
+                        registerModel.registerReset();
+                    }
                 }
                 
             }
