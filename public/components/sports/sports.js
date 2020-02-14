@@ -13,7 +13,7 @@ app.localization.registerView('sports');
             sport:"",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
             play: function(){
-                var pts = 20;
+                var pts = 40;
 
                 app.scan(sportsModel.id, function (content) {
                     var request = {
@@ -26,7 +26,7 @@ app.localization.registerView('sports');
                         userType:localStorage.getItem("type")
                     }
                     var response = app.postData(app.api.debitPts, request);
-                    if(response != null &&  response.isSuccess){
+                    if(response != null){
                        app.showNotification("Success");
                     }
                     app.stopQRwithHtml(sportsModel.id,app.htmlCnt);
@@ -34,7 +34,7 @@ app.localization.registerView('sports');
 
             },
             winner: function(){
-                var pts = 50;
+                var pts = 40;
                 var sportResponse = app.getData(app.api.getGamesWithPts+sportsModel.sport);
 
                 if(sportResponse != null){
@@ -52,9 +52,9 @@ app.localization.registerView('sports');
                         userType:localStorage.getItem("type")
                     }
                     var response = app.postData(app.api.creditReward, request);
-                    if(response != null &&  response.isSuccess){
-                       app.showNotification("Success");
-                    }
+                    if(response != null){
+                        app.showNotification("Success");
+                     }
                     app.stopQRwithHtml(sportsModel.id,app.htmlCnt);
                 });
             }
