@@ -39,25 +39,15 @@
             getCardStatus:"/card/getCardStatus",
             special:"/pts/special/",
             getFamily:"/user/getFamily/",
-            getChampionMaleJunior :"/pts/championsMale/M",
-            getChampionMaleMiddle :"/pts/championsMale/M/",
-            getChampionMaleSenior :"/pts/championsMale/M/",
-            getChampionFemaleJunior :"/pts/championsMale/F/",
-            getChampionFemaleMiddle :"/pts/championsMale/F/",
-            getChampionFemaleSenior :"/pts/championsMale/F/",
+            getChampionMale :"/pts/championsMale/M",
+            getChampionFemale :"/pts/championsMale/F",
             getPopularGame :"/pts/popularGame/",
-            getChampAllMaleJunior:"/pts/memberChampionsAll/M/",
-            getChampAllMaleMiddle:"/pts/memberChampionsAll/M/",
-            getChampAllMaleSenior:"/pts/memberChampionsAll/M/",
-            getChampAllFemaleJunior:"/pts/memberChampionsAll/F/",
-            getChampAllFemaleMiddle:"/pts/memberChampionsAll/F/",
-            getChampAllFemaleSenior:"/pts/memberChampionsAll/F/",
-            getSchoolChampMaleJunior:"/pts/schoolChampions/M/",
-            getSchoolChampMaleMiddle:"/pts/schoolChampions/M/",
-            getSchoolChampMaleSenior:"/pts/schoolChampions/M/",
-            getSchoolChampFemaleJunior:"/pts/schoolChampions/F",
-            getSchoolChampFemaleMiddle:"/pts/schoolChampions/F",
-            getSchoolChampFemaleSenior:"/pts/schoolChampions/F",
+            getChampAllMale:"/pts/memberChampionsAll/M",
+            getChampAllFemale:"/pts/memberChampionsAll/F",
+            getSchoolChampMale:"/pts/schoolChampions/M/",
+            getSchoolChampFemale:"/pts/schoolChampions/F",
+            getMemberChampionsMale:"/pts/memberChampions/M",
+            getMemberChampionsFemale:"/pts/memberChampions/F",
             ageGroupJunior :"/5/9",
             ageGroupMiddle :"/10/14",
             ageGroupSenior :"/15/18",
@@ -91,6 +81,9 @@
         localStorage.setItem("culture","en")
         $(function() {
             app.baseUrl = app.prod+"/yeskindia/api";
+            if(localStorage.getItem("env") == "local"){
+                app.baseUrl = app.localhost+"/yeskindia/api";
+            }
             app.mobileApp = new kendo.mobile.Application(document.body, {
                 transition: 'slide',
                 skin: 'nova',
@@ -271,7 +264,7 @@
         localStorage.setItem(id,$("#"+id).html());
         $("#"+id).html("<video id='preview' style='width:100%;height:320px;'></video>");
         
-        app.scanner = new Instascan.Scanner({ video: document.getElementById("preview") });
+        app.scanner = new Instascan.Scanner({ video: document.getElementById("preview"), mirror:false });
         app.scanner.addListener('scan', callback);
 
         Instascan.Camera.getCameras().then(function (cameras) {

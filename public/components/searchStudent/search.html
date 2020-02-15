@@ -1,0 +1,85 @@
+<div data-role="view" data-title="search" data-layout="main-nonav" data-model="app.search" data-show="app.search.onShow"
+    data-after-show="app.search.afterShow" id="searchScreen" data-use-native-scrolling="true">
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page login-page" filter-color="black" data-image="">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+            <div class="content">
+                <div class="container">
+                    <div class="row" style="margin-right: -22px;margin-left: -22px;">
+                        <div class="leaderboard-cont leaderboard-green-blue">
+                            <div class="heading" data-bind="text: strings.home.title"></div>
+                            <div class="subheading" data-bind="text: strings.home.abbr"></div>
+                            <div class="bar-1"></div>
+                            <div class="ring-1"></div>
+                            <div class="ring-1 inset"></div>
+                            <div class="ring-2"></div>
+                            <div class="ring-2 inset"></div>
+                            <div class="icon">
+                                <img src="img/logo.png" style="width: 100%";/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+
+                            <form>
+                                <div class="card card-login card-hidden">
+                                    <h4 style="text-align: center;" data-bind="text: strings.home.welcome">
+                                    </h4>
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="parentNumber" class="bmd-label-floating">Mobile Number</label>
+                                                    <input type="text" maxlength="10" class="form-control" id="parentNumber" data-bind="value: searchModel.mobilenumber">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-sm-3">
+                                                <button type="button" data-bind="events:{ click : searchModel.search }" class="btn btn-info">
+                                                    Get Game points
+                                                  </button type="button">
+                                            </div>
+                                        </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="list__body">
+                                                        <table class="list__table" id="searchHtml">
+                                                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright pull-right text-white" style="color:white">
+                        &copy;
+                        <a style="color:white" data-bind="text:strings.home.company"> YeskIndia </a> <span
+                            data-bind="text: strings.home.moto"></span>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="searchTemplate"> 
+    #for (var i=0;i< data.length;i++) { #
+        <tr class="list__row">
+            <td class="list__cell"><span class="list__value">${i+1}</span></td>
+            <td class="list__cell"><span class="list__value">${data[i].name}
+                    </span></td>
+            <td class="list__cell"><span class="list__value">${data[i].totPts}</span><small
+                    class="list__label">Yesk Points</small></td>
+            <td class="list__cell"><span class="list__value">${data[i].totRewards}</span><small
+                    class="list__label">Reward Points</small></td>
+        </tr>
+        # }#
+</script>

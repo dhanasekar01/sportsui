@@ -5,16 +5,26 @@
             <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
             <div class="content">
                 <div class="container">
+                    <h1 id="championCategory" style="text-align:center;color:white; writing-mode: vertical-rl;
+                    text-orientation: upright;position: fixed;left: 5px;top:10vh;font-size: 40px;font-weight: bolder;">
+                    OVERALL</h1>
+                    <h1 style="text-align:center;color:white; writing-mode: vertical-rl;
+                    text-orientation: upright;position: fixed;right: 0px;top:10vh;font-size: 40px;font-weight: bolder;">
+                    CHAMPIONS</h1>
                     <div class="row">
-                        <div class="col-12 col-sm-4">
+                        
+                        <div id="champions">
+
+                        </div>
+
+                        <div class="col-8 col-sm-12" id="leaders">
                             <div class="wrapper">
                                 <div class="list">
                                     <div class="list__header">
-                                        <h1>OVERALL CHAMPION</h1>
-                                        <h5>JUNIOR MALE</h5>
+                                        <h1 id="leadercategory"></h1>
                                     </div>
                                     <div class="list__body">
-                                        <table class="list__table" id="leaderboardhtml">
+                                        <table class="list__table" id="ageGroup">
                                             
                                         </table>
                                     </div>
@@ -34,16 +44,68 @@
                 </div>
             </div>
         </div>
-    <script type="text/x-kendo-template" id="leaderboardhtmlTemplate">
-        #for (var i=0;i< data.length;i++) { #
+<script type="text/x-kendo-template" id="leaderboardhtmlTemplate">
+    #for (var i=0;i< data.length;i++) { #
         <tr class="list__row">
-            <td class="list__cell"><span class="list__value">10</span></td>
-            <td class="list__cell"><span class="list__value">Carlos
-                    Sainz</span><small class="list__label">Driver</small></td>
-            <td class="list__cell"><span class="list__value">Renault</span><small
-                    class="list__label">Constructor</small></td>
-            <td class="list__cell"><span class="list__value">19</span><small
+            <td class="list__cell"><span class="list__value">${data[i].ranks}</span></td>
+            <td class="list__cell"><span class="list__value">${data[i].userName}
+                    </span></td>
+            <td class="list__cell"><span class="list__value">${data[i].accompanyName}</span></td>
+            <td class="list__cell"><span class="list__value">${data[i].points}</span><small
                     class="list__label">Points</small></td>
         </tr>
-        # }#
-    </script>
+    # }#
+</script>
+<script type="text/x-kendo-template" id="championTemplate">
+
+# var i,j,temparray,chunk = 4; #
+#for (i=0,j=data.length; i<j; i+=chunk) { #
+    #   temparray = data.slice(i,i+chunk); #
+
+#for(var k=0;k< temparray.length;k++) {  console.log(data.length)#
+    
+        #if(k== 0){#
+            <div class="row">
+        # } #
+        <div class= "col-sm-3" >
+            <div class="card card-pricing" style="max-height: 200px;min-height: 200px;">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="card-body">
+                            <div class="card-icon icon-rose ">
+                                <img src="img/cricket.png" style="width:80px;">
+                            </div>
+                            <h3 class="card-title" style="font-weight:bolder">Aadhavan</h3>
+                            <p class="card-description">Govt. Hr. Sec. School Chennai</p>
+                            </div>
+                    </div>
+                    
+                    <div class="col-sm-3" style="background-color:\#fcd326;max-height: 200px;min-height: 200px;">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <br />
+                                <img src="img/logo.png" style="width:50px;" />
+                                <br />
+                                <br />
+                                <b>YESK Point</b>
+                                <p style="font-weight:500;font-size:22px"><b>801 </b></p>
+                                
+                            </div>
+                            <div class="col-sm-12">
+                                <img src="img/cup.png" width="60px;"/>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        #if(k == 3){#
+            </div>
+        #}#
+    #} }#
+
+    
+</script>

@@ -113,7 +113,7 @@ app.localization.registerView('student');
             $('.card').removeClass('card-hidden');
         }, 700)
 
-        //studentModel.scan();
+        studentModel.scan();
         
     });
 
