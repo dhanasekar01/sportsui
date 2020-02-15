@@ -296,7 +296,7 @@ app.localization.registerView('register');
                             qrId:qrId,
                             age:age,
                             gender:gender,
-                            memberId:registerModel.qrId,
+                            memberId:$("#qrId").val(),
                             status:"A",
                             createdId:localStorage.getItem("username"),
                             pts:pts
