@@ -181,9 +181,6 @@ app.localization.registerView('register');
 
                 var message ="";
 
-                if(model.qrId == "" && $("#qrId").val() !=""){
-                    message += "QR is required <br/>";
-                }
                 var IndNum = /^\d{10}$/;
                 if(registerModel.get("mobilenumber") == ""){
                     message += "Mobile Number is required <br/>";
