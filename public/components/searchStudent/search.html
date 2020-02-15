@@ -1,5 +1,5 @@
-<div data-role="view" data-title="search" data-layout="main-nonav" data-model="app.search" data-show="app.search.onShow"
-    data-after-show="app.search.afterShow" id="searchScreen" data-use-native-scrolling="true">
+<div data-role="view" data-title="searchStudent" data-layout="main-nonav" data-model="app.searchStudent" data-show="app.searchStudent.onShow"
+    data-after-show="app.searchStudent.afterShow" id="searchStudentScreen" data-use-native-scrolling="true">
     <div class="wrapper wrapper-full-page">
         <div class="full-page login-page" filter-color="black" data-image="">
             <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
@@ -28,22 +28,29 @@
                                     </h4>
                                     <div class="card-content">
                                         <div class="row">
-                                            <div class="col-12 col-sm-6">
+                                            <div class="col-12 col-sm-4">
+                                                <div id="studentscanner" style="text-align: center;max-height: 450px;">
+                                                    <br />
+                                                    <img 
+                                                        src="/img/scanner.png" style="width:50%">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3">
                                                 <div class="form-group">
-                                                    <label for="parentNumber" class="bmd-label-floating">Mobile Number</label>
-                                                    <input type="text" maxlength="10" class="form-control" id="parentNumber" data-bind="value: searchModel.mobilenumber">
+                                                    <label for="studentId" class="bmd-label-floating">QR ID</label>
+                                                    <input type="text" maxlength="10" class="form-control" id="studentId" >
                                                 </div>
                                             </div>
                                             <div class="col-6 col-sm-3">
-                                                <button type="button" data-bind="events:{ click : searchModel.search }" class="btn btn-info">
-                                                    Get Game points
+                                                <button type="button" data-bind="events:{ click : searchStudentModel.searchStudent }" class="btn btn-info">
+                                                    Get Student
                                                   </button type="button">
                                             </div>
                                         </div>
                                             <div class="row">
                                                 <div class="col-12 col-sm-12">
                                                     <div class="list__body">
-                                                        <table class="list__table" id="searchHtml">
+                                                        <table class="list__table" id="searchStudentHtml">
                                                             
                                                         </table>
                                                     </div>
@@ -70,16 +77,16 @@
     </div>
 </div>
 
-<script type="text/x-kendo-template" id="searchTemplate"> 
+<script type="text/x-kendo-template" id="searchStudentTemplate"> 
     #for (var i=0;i< data.length;i++) { #
         <tr class="list__row">
             <td class="list__cell"><span class="list__value">${i+1}</span></td>
-            <td class="list__cell"><span class="list__value">${data[i].name}
+            <td class="list__cell"><span class="list__value">${data[i].id.studentName}
                     </span></td>
-            <td class="list__cell"><span class="list__value">${data[i].totPts}</span><small
-                    class="list__label">Yesk Points</small></td>
-            <td class="list__cell"><span class="list__value">${data[i].totRewards}</span><small
-                    class="list__label">Reward Points</small></td>
+            <td class="list__cell"><span class="list__value">${data[i].schoolName}</span><small
+                    class="list__label">${data[i].qrId}</small></td>
+            <td class="list__cell"><span class="list__value">${data[i].id.parentNumber}</span><small
+                    class="list__label">${data[i].gender}</small></td>
         </tr>
         # }#
 </script>

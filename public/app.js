@@ -53,7 +53,8 @@
             ageGroupSenior :"/15/18",
             getPoints :"/user/getPoints/",
             registerStudent:"/user/registerStudent",
-            noteTransaction:"/pts/noteTransaction"
+            noteTransaction:"/pts/noteTransaction",
+            getStudent:"/user/getStudent/"
         },
         data:"data",
         htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
@@ -235,6 +236,7 @@
             case 110: app.mobileApp.navigate("components/special/special.html");break;
             case 111: app.mobileApp.navigate("components/student/student.html");break;
             case 112: app.mobileApp.navigate("components/search/search.html");break;
+            case 113: app.mobileApp.navigate("components/searchStudent/search.html");break;
             case "": break;
 
         }

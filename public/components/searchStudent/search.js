@@ -1,32 +1,32 @@
 'use strict';
 
-app.search = kendo.observable({
+app.searchStudent = kendo.observable({
     onShow: function () { },
     afterShow: function () { }
 });
-app.localization.registerView('search');
+app.localization.registerView('searchStudent');
 
 (function (parent) {
     var
-        searchModel = kendo.observable({
+        searchStudentModel = kendo.observable({
             id:"sport-qr",
             htmlCnt :'<br /><img src="/img/scanner.png" style="width:50%">',
-            search: function(){
-                var phoneNo = $("#parentNumber").val();
-                var response = app.getData(app.api.getPoints+phoneNo);
+            searchStudent: function(){
+                var phoneNo = $("#studentId").val();
+                var response = app.getData(app.api.getStudent+phoneNo);
 
-                var template = kendo.template($("#searchTemplate").html());
+                var template = kendo.template($("#searchStudentTemplate").html());
                 
                 var tempData = {
                     data: response
                 }
 
                 var result = template(tempData);
-                $("#searchHtml").html(result);
+                $("#searchStudentHtml").html(result);
             }
         });
 
-    parent.set('searchModel', searchModel);    
+    parent.set('searchStudentModel', searchStudentModel);    
 
     parent.set('onShow', function (e) {
 
@@ -44,9 +44,16 @@ app.localization.registerView('search');
             $('.card').removeClass('card-hidden');
         }, 700)
 
+        app.scan("studentscanner", function (content) {
+            $("#studentId").val(content);
+            setTimeout(function(){
+                searchStudentModel.searchStudent();
+            },3000 )
+        });
+
     });
 
     parent.set('afterShow', function (e) {
 
     });
-})(app.search);
+})(app.searchStudent);
