@@ -181,7 +181,7 @@ app.localization.registerView('register');
 
                 var message ="";
 
-                if(model.qrId == "" && $("#qrId").val()){
+                if(model.qrId == "" && $("#qrId").val() !=""){
                     message += "QR is required <br/>";
                 }
                 var IndNum = /^\d{10}$/;

@@ -49,7 +49,7 @@
             getMemberChampionsMale:"/pts/memberChampions/M",
             getMemberChampionsFemale:"/pts/memberChampions/F",
             ageGroupJunior :"/5/9",
-            ageGroupMiddle :"/10/14",
+            ageGroupMiddle :"/5/18",
             ageGroupSenior :"/15/18",
             getPoints :"/user/getPoints/",
             registerStudent:"/user/registerStudent",
